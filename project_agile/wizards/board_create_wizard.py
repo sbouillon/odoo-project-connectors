@@ -49,12 +49,12 @@ class BoardCreateWizard(models.TransientModel):
         help="User which owns this board",
     )
 
-    @api.one
+    
     @api.depends("project_ids")
     def _compute_workflow_ids(self):
         self.workflow_ids = self.mapped("project_ids.workflow_id").ids
 
-    @api.multi
+    
     def button_apply(self):
         self.ensure_one()
 

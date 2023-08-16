@@ -21,7 +21,7 @@ class WorkflowState(models.Model):
         string="Columns Statuses",
     )
 
-    @api.multi
+    
     def name_get(self):
         if not self.env.context.get("workflow_name", False):
             return super(WorkflowState, self).name_get()
@@ -67,7 +67,7 @@ class Workflow(models.Model):
         compute="_compute_default_task_type_id",
     )
 
-    @api.multi
+    
     @api.depends("task_type_ids", "task_type_ids.is_default")
     def _compute_default_task_type_id(self):
         for wkf in self:
@@ -76,7 +76,7 @@ class Workflow(models.Model):
                     wkf.default_task_type_id = type
                     break
 
-    @api.multi
+    
     def has_task_type(self, type_id):
         self.ensure_one()
         for task_type in self.task_type_ids:

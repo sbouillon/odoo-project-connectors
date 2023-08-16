@@ -5,7 +5,7 @@
     "name": "Project GitHub Integration",
     "summary": "Enables you to integrate your projects with GitHub",
     "category": "Project",
-    "version": "12.0.1.0.0",
+    "version": "16.0.1.0.0",
     "license": "LGPL-3",
     "author": "Odoo Community Association (OCA), Modoolar",
     "website": "https://www.modoolar.com/",

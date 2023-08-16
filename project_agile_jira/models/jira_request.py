@@ -83,24 +83,24 @@ class JiraRequest(models.Model):
             finally:
                 new_cr.close()
 
-    @api.multi
+    
     def create_task(self, data):
         self.ensure_one()
         with self.session() as new_cr:
             self.with_env(self.env(cr=new_cr)).env["project.task"].create(data)
 
-    @api.multi
+    
     def write_dict(self, vals):
         self.ensure_one()
         with self.session() as new_cr:
             self.with_env(self.env(cr=new_cr)).write(vals)
 
-    @api.multi
+    
     def requeue_request(self):
         self.ensure_one()
         self.write_dict({"state": "confirmed", "attempt": self.attempt + 1})
 
-    @api.multi
+    
     def _create_log(self, message, stack_trace=None, log_type="error"):
         """Create requestion log in a separate db connection."""
 

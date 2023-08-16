@@ -79,7 +79,7 @@ class Sprint(models.Model):
         related="team_id.default_hrs", string="Default daily hours"
     )
 
-    @api.multi
+    
     @api.depends("task_ids", "task_ids.story_points")
     def _compute_total_story_points(self):
         for record in self:
@@ -87,7 +87,7 @@ class Sprint(models.Model):
                 int(t.story_points) for t in record.task_ids
             )
 
-    @api.multi
+    
     @api.depends("task_ids", "task_ids.story_points", "state")
     def _compute_velocity(self):
         for sprint in self:
@@ -98,19 +98,19 @@ class Sprint(models.Model):
                 )
             )
 
-    @api.multi
+    
     @api.depends("task_ids")
     def _compute_task_count(self):
         for record in self:
             record.task_count = len(record.task_ids)
 
-    @api.multi
+    
     @api.depends("start_date", "end_date")
     def _compute_length_week(self):
         for rec in self:
             rec.sprint_length_week = (rec.sprint_length_days + 1) / 7
 
-    @api.multi
+    
     @api.depends("start_date", "end_date")
     def _compute_length_days(self):
         for rec in self:
@@ -121,7 +121,7 @@ class Sprint(models.Model):
             else:
                 rec.sprint_length_days = 0
 
-    @api.multi
+    
     @api.depends("start_date", "end_date")
     def _compute_length_hrs(self):
         for rec in self:
@@ -130,7 +130,7 @@ class Sprint(models.Model):
             hrs_int = int(hrs)
             rec.sprint_length_hrs = hrs_int
 
-    @api.multi
+    
     def write(self, values):
         result = super(Sprint, self).write(values)
         return result

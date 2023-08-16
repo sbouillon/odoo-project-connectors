@@ -1,4 +1,3 @@
-# Copyright 2017 - 2018 Modoolar <info@modoolar.com>
 # License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
 
 import re
@@ -72,7 +71,7 @@ class GitPayloadParser(models.AbstractModel):
         if event not in self._gitlab_supported_event_types():
             return False
 
-        # In case of a push we need to check if we have a delete event
+        # In case of a push, we need to check if we have a deleted event
         if is_delete_event(event):
             event = "delete"
 

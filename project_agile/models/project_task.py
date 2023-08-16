@@ -59,7 +59,7 @@ class ProjectTaskLink(models.Model):
         compute="_compute_related_task_id",
     )
 
-    @api.multi
+    
     @api.depends()
     def _compute_display_name(self):
         for record in self:
@@ -70,7 +70,7 @@ class ProjectTaskLink(models.Model):
 
             record.name = "[%s] %s" % (other_task.key, other_task.name)
 
-    @api.multi
+    
     def _compute_relation_name(self):
         task_id = self.env.context.get("task_id", -1)
         for record in self:
@@ -82,7 +82,7 @@ class ProjectTaskLink(models.Model):
 
             record.relation_name = rel_name
 
-    @api.multi
+    
     def _compute_related_task_id(self):
         task_id = self.env.context.get("task_id", -1)
         for record in self:
@@ -92,12 +92,12 @@ class ProjectTaskLink(models.Model):
 
             record.related_task_id = other_task
 
-    @api.multi
+    
     def delete_task_link(self):
         self.ensure_one()
         self.unlink()
 
-    @api.multi
+    
     def open_task_link(self):
         self.ensure_one()
 
@@ -181,7 +181,7 @@ class TaskType(models.Model):
 
     is_default_type = fields.Boolean(string="Is Default Type", default=False)
 
-    @api.multi
+    
     def write(self, values):
         if values.get("is_default_type", False) and values["is_default_type"]:
             default_task_type = self.search([("is_default_type", "=", True)])
@@ -231,12 +231,12 @@ class TaskType(models.Model):
             name=name, args=args, operator=operator, limit=limit
         )
 
-    @api.multi
+    
     def apply_portal_status(self):
         self.ensure_one()
         self.task_ids.write({"portal_visible": self.portal_visible})
 
-    @api.multi
+    
     def fetch_all(self):
         task_type_ids = []
 
@@ -281,7 +281,7 @@ class TaskPriority(models.Model):
         )
     ]
 
-    @api.multi
+    
     def write(self, values):
         if (
             values.get("is_default_priority", False)
@@ -446,7 +446,7 @@ class Task(models.Model):
 
     activity_date_deadline = fields.Date(groups="")
 
-    @api.multi
+    
     @api.onchange("parent_id")
     def _onchange_parent_id(self):
         # Convert to sub-task/story when actually task/story and parent is task/story
@@ -459,7 +459,7 @@ class Task(models.Model):
 
         return super()._onchange_parent_id()  # pragma: no cover
 
-    @api.multi
+    
     @api.depends("type_id")
     def _compute_is_story(self):
         ptts = self.env.ref(
@@ -468,7 +468,7 @@ class Task(models.Model):
         for record in self:
             record.is_user_story = ptts and record.type_id.id == ptts.id
 
-    @api.multi
+    
     @api.depends("type_id")
     def _compute_is_epic(self):
         ptte = self.env.ref(
@@ -477,7 +477,7 @@ class Task(models.Model):
         for record in self:
             record.is_epic = ptte and record.type_id.id == ptte.id
 
-    @api.multi
+    
     @api.depends("parent_id", "parent_id.epic_id")
     def _compute_epic_id(self):
         epic_type = self.env.ref(
@@ -499,13 +499,13 @@ class Task(models.Model):
             for record in self:
                 record.epic_id = False
 
-    @api.multi
+    
     @api.depends("user_id")
     def _compute_assigned_to_me(self):
         for task in self:
             task.assigned_to_me = task.user_id.id == self.env.user.id
 
-    @api.multi
+    
     def _compute_task_count(self):
         data = self.env["project.task"].read_group(
             [("parent_id", "in", self.ids)], ["parent_id"], ["parent_id"]
@@ -516,7 +516,7 @@ class Task(models.Model):
         for record in self:
             record.task_count = data.get(record.id, 0)
 
-    @api.multi
+    
     def _compute_doc_count(self):
         attachment_data = self.env["ir.attachment"].read_group(
             [("res_model", "=", self._name), ("res_id", "in", self.ids)],
@@ -531,7 +531,7 @@ class Task(models.Model):
         for record in self:
             record.doc_count = mapped_data.get(record.id, 0)
 
-    @api.multi
+    
     def _compute_links(self):
         for record in self:
             record.link_ids = self.env["project.task.link"].search(
@@ -542,7 +542,7 @@ class Task(models.Model):
                 ]
             )
 
-    @api.multi
+    
     def _compute_link_count(self):
         for record in self:
             record.link_count = len(record.link_ids)
@@ -615,7 +615,7 @@ class Task(models.Model):
 
         return new
 
-    @api.multi
+    
     def write(self, vals):
         result = super(Task, self).write(vals)
         if "type_id" in vals.keys():
@@ -682,7 +682,7 @@ class Task(models.Model):
 
         return super(Task, self).search(args, offset, limit, order, count)
 
-    @api.multi
+    
     def open_sub_task(self):
         self.ensure_one()
         ctx = self._context.copy()
@@ -704,7 +704,7 @@ class Task(models.Model):
             "context": ctx,
         }
 
-    @api.multi
+    
     def attachment_tree_view(self):
         self.ensure_one()
 
@@ -770,7 +770,7 @@ class PortalTask(models.Model):
 
         return {"id": task.id}
 
-    @api.multi
+    
     def update_task_portal(self, values):
         task_values = {
             "name": values["name"],
@@ -799,7 +799,7 @@ class Timesheet(models.Model):
         comodel_name="res.users", string="Portal Approved By", index=True,
     )
 
-    @api.multi
+    
     def button_portal_open(self):
         self.ensure_one()
         if self.portal_approved:
@@ -809,7 +809,7 @@ class Timesheet(models.Model):
             dict(portal_approved=True, portal_approved_by=self.env.user.id)
         )
 
-    @api.multi
+    
     def button_portal_close(self):
         self.ensure_one()
         if not self.portal_approved:

@@ -66,7 +66,7 @@ class ProjectAnalyticLine(models.Model):
         index=True,
     )
 
-    @api.multi
+    
     def _compute_duration(self):
         for record in self:
             s = fields.Datetime.to_datetime(record.start_date)

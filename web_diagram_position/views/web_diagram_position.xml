@@ -4,7 +4,7 @@
 # License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
 -->
 <openerp>
-    <template id="assets_backend" name="project_workflow_assets" inherit_id="web.assets_backend">
+    <!--<template id="assets_backend" name="project_workflow_assets" inherit_id="web.assets_backend">
         <xpath expr="." position="inside">
             <script type="text/javascript"
                     src="/web_diagram_position/static/src/js/graph.js" />
@@ -15,5 +15,5 @@
              <script type="text/javascript"
                                 src="/web_diagram_position/static/src/js/diagram_renderer.js" />
         </xpath>
-    </template>
+    </template>-->
 </openerp>

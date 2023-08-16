@@ -28,7 +28,7 @@ class ConvertProjectTaskTypeWizard(models.TransientModel):
     convert_undefined_stage = fields.Boolean(string="Convert undefined stage", default=False,
                                              help="Includes undefined stage tasks to be transferred.")
 
-    @api.multi
+    
     @api.model_cr
     def convert_project_task_type(self):
         """

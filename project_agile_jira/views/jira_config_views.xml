@@ -52,7 +52,6 @@
     <record id="action_project_agile_jira_config" model="ir.actions.act_window">
         <field name="name">Jira</field>
         <field name="res_model">project.agile.jira.config</field>
-        <field name="view_type">form</field>
         <field name="view_mode">kanban,tree,form</field>
         <field name="view_id" ref="view_project_agile_jira_config_tree"/>
         <field name="context">{}</field>

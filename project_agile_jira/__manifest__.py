@@ -5,7 +5,7 @@
     "name": "Project Agile Jira Extension",
     "summary": "Enables you to migrate projects and tasks from JIRA to Odoo",
     "category": "Project",
-    "version": "12.0.1.0.0",
+    "version": "16.0.1.0.0",
     "license": "LGPL-3",
     "author": "Modoolar",
     "website": "https://www.modoolar.com/",

@@ -22,7 +22,7 @@ class ConvertTaskType2Wizard(models.TransientModel):
         comodel_name="project.task.type2", string="Task Type", required=True, help="Select task type to convert."
     )
 
-    @api.multi
+    
     def convert_project_task_type2(self):
         # TODO need to check the task type2 available with the project
         for task_id in self.task_ids:

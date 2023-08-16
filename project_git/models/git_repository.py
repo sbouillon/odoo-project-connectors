@@ -1,4 +1,3 @@
-# Copyright 2017 - 2018 Modoolar <info@modoolar.com>
 # License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
 
 import string
@@ -20,11 +19,11 @@ class GitRepository(models.Model):
         )
         return secret
 
-    name = fields.Char(string="Name", size=256,)
+    name = fields.Char(string="Name", size=256, )
 
     repo_name = fields.Char(related="name")
 
-    uuid = fields.Char(string="UUID", size=256, index=True,)
+    uuid = fields.Char(string="UUID", size=256, index=True, )
 
     full_name = fields.Char(string="Full Name", size=256)
 
@@ -32,7 +31,7 @@ class GitRepository(models.Model):
         string="UUID", size=256, default=lambda *a: uuid.uuid4(), index=True,
     )
 
-    avatar = fields.Char(string="Avatar", compute="_compute_avatar",)
+    avatar = fields.Char(string="Avatar", compute="_compute_avatar", )
 
     url = fields.Char(string="URL", default="#")
 
@@ -58,7 +57,7 @@ class GitRepository(models.Model):
         index=True,
     )
 
-    type = fields.Selection(selection=[], string="Type", index=True,)
+    type = fields.Selection(selection=[], string="Type", index=True, )
 
     webhook_url = fields.Char(
         string="Webhook Url", compute="_compute_webhook_url",
@@ -70,18 +69,15 @@ class GitRepository(models.Model):
 
     image_type = fields.Char(string="Type", compute="_compute_image_type")
 
-    @api.multi
     @api.depends("branch_ids")
     def _compute_branch_count(self):
         for rec in self:
             rec.branch_count = len(rec.branch_ids)
 
-    @api.multi
     @api.depends("type")
     def _compute_avatar(self):
         get_avatar(self, "repository")
 
-    @api.multi
     @api.depends("type")
     def _compute_use_secret(self):
         secret_types = self._secret_visible_for_types()
@@ -91,7 +87,6 @@ class GitRepository(models.Model):
     def _secret_visible_for_types(self):
         return []
 
-    @api.multi
     @api.depends("type")
     def _compute_image_type(self):
         get_image_type(self)
@@ -111,7 +106,6 @@ class GitRepository(models.Model):
                 return item[1]
         return ""
 
-    @api.multi
     @api.depends("odoo_uuid", "type")
     def _compute_webhook_url(self):
         base_url = (

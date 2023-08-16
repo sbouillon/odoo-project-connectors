@@ -76,7 +76,7 @@ class BacklogColumnStatus(models.Model):
         )
     ]
 
-    @api.one
+    
     @api.depends("board_id", "board_id.project_ids")
     def _compute_workflow_ids(self):
         self.workflow_ids = self.mapped("board_id.project_ids.workflow_id").ids
@@ -122,7 +122,7 @@ class BacklogStates(models.Model):
         )
     ]
 
-    @api.one
+    
     @api.depends("board_id", "board_id.project_ids")
     def _compute_workflow_ids(self):
         self.workflow_ids = self.mapped("board_id.project_ids.workflow_id").ids

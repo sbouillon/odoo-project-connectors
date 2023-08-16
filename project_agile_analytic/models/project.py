@@ -21,13 +21,13 @@ class Project(models.Model):
         compute="_compute_analytic_enabled", string="Analytic Enabled"
     )
 
-    @api.multi
+    
     @api.depends("analytic_line_ids")
     def _compute_analytic_line_count(self):
         for record in self:
             record.analytic_line_count = len(record.analytic_line_ids)
 
-    @api.multi
+    
     @api.depends("type_id")
     def _compute_analytic_enabled(self):
         for record in self:

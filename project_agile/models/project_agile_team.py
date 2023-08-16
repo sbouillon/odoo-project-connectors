@@ -77,13 +77,13 @@ class AgileTeam(models.Model):
         "Use this field anywhere a small image is required.",
     )
 
-    @api.multi
+    
     @api.depends("project_ids")
     def _compute_product_owner_ids(self):
         for rec in self:
             rec.product_owner_ids = rec.project_ids.mapped("user_id")
 
-    @api.multi
+    
     def _compute_report_ids(self):
         for rec in self:
             rec.report_ids = (
@@ -115,7 +115,7 @@ class AgileTeam(models.Model):
         new.member_ids.fix_team_id()
         return new
 
-    @api.multi
+    
     def write(self, vals):
         res = super(AgileTeam, self).write(vals)
 

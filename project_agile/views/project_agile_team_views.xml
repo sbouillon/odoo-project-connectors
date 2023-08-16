@@ -169,7 +169,6 @@
 
     <record id="action_project_agile_team" model="ir.actions.act_window">
         <field name="res_model">project.agile.team</field>
-        <field name="view_type">form</field>
         <field name="name">Teams</field>
         <field name="view_mode">kanban,tree,form</field>
         <field name="view_id" ref="project_agile_team_kanban_view"/>

@@ -18,7 +18,7 @@ class Task(models.Model):
         ("task_key_unique", "UNIQUE(key)", "Task key must be unique!")
     ]
 
-    @api.multi
+    
     def _compute_task_url(self):
         task_action = self.env.ref("project.action_view_task")
         for task in self:
@@ -42,7 +42,7 @@ class Task(models.Model):
                 vals["key"] = project.get_next_task_key()
         return super(Task, self).create(vals_list)
 
-    @api.multi
+    
     def write(self, vals):
         if vals.get("project_id", False):
             project = self.env["project.project"].browse(vals["project_id"])
@@ -84,7 +84,7 @@ class Task(models.Model):
         tasks = self.search(domain + args, limit=limit)
         return tasks.name_get()
 
-    @api.multi
+    
     def name_get(self):
         result = []
 

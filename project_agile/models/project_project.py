@@ -39,7 +39,7 @@ class ProjectType(models.Model):
         ("name_unique", "UNIQUE(name)", "The name must be unique"),
     ]
 
-    @api.multi
+    
     def has_task_type(self, type_id):
         self.ensure_one()
         for task_type in self.task_type_ids:
@@ -177,13 +177,13 @@ class Project(models.Model):
         "Use this field anywhere a small image is required.",
     )
 
-    @api.multi
+    
     def _compute_board_count(self):
         for record in self:
             if record.agile_enabled:
                 record.boards_count = len(record.board_ids)
 
-    @api.multi
+    
     def _compute_user_story_count(self):
         user_story_type = self.env.ref("project_agile.project_task_type_story")
         for prj in self:
@@ -194,7 +194,7 @@ class Project(models.Model):
                 ]
             )
 
-    @api.multi
+    
     def _compute_epics_count(self):
         epics_type = self.env.ref("project_agile.project_task_type_epic")
         for prj in self:
@@ -202,7 +202,7 @@ class Project(models.Model):
                 [("project_id", "=", prj.id), ("type_id", "=", epics_type.id)]
             )
 
-    @api.multi
+    
     def _compute_estimations(self):
         for record in self:
             o = {"todo": 0, "in_progress": 0, "done": 0}
@@ -273,7 +273,7 @@ class Project(models.Model):
 
         return new
 
-    @api.multi
+    
     def write(self, vals):
         self._fix_type_ids(vals)
 
@@ -297,7 +297,7 @@ class Project(models.Model):
 
         vals["type_ids"] = [(6, 0, new_type_ids)]
 
-    @api.multi
+    
     def open_board_tree_view(self):
         self.ensure_one()
 
@@ -317,7 +317,7 @@ class Project(models.Model):
             "limit": 80,
         }
 
-    @api.multi
+    
     def open_user_stories(self):
         self.ensure_one()
         action = self.env.ref_action(
@@ -347,7 +347,7 @@ class Project(models.Model):
 
         return action
 
-    @api.multi
+    
     def open_epics(self):
         self.ensure_one()
         action = self.env.ref_action(
@@ -376,7 +376,7 @@ class Project(models.Model):
 
         return action
 
-    @api.multi
+    
     def open_tasks(self):
         self.ensure_one()
 

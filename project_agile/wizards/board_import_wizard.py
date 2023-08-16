@@ -13,7 +13,7 @@ class BoardImportWizard(models.TransientModel):
 
     data = fields.Binary(string="Data", required=True,)
 
-    @api.multi
+    
     def button_import(self):
         self.ensure_one()
         importer = self.get_board_importer()

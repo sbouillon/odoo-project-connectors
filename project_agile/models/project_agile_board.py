@@ -99,12 +99,12 @@ class Board(models.Model):
         help="User which owns this board",
     )
 
-    @api.one
+    
     @api.depends("project_ids")
     def _compute_workflow_ids(self):
         self.workflow_ids = self.mapped("project_ids.workflow_id").ids
 
-    @api.multi
+    
     def _compute_report_ids(self):
         for rec in self:
             rec.project_ids = (
@@ -114,7 +114,7 @@ class Board(models.Model):
                 or []
             )
 
-    @api.multi
+    
     def get_mapped_states(self):
         self.ensure_one()
         mapped_states = []
@@ -122,14 +122,14 @@ class Board(models.Model):
             mapped_states.extend([x.state_id.id for x in column.status_ids])
         return mapped_states
 
-    @api.multi
+    
     def _compute_unmapped_task_stage_ids(self):
         for record in self:
             record.unmapped_task_stage_ids = [
                 x.stage_id.id for x in record.unmapped_state_ids
             ]
 
-    @api.multi
+    
     def _compute_unmapped_state_ids(self):
         for record in self:
             mapped_states = set(record.get_mapped_states())
@@ -158,18 +158,18 @@ class Board(models.Model):
         self.clear_caches()
         return new
 
-    @api.multi
+    
     def write(self, vals):
         res = super(Board, self).write(vals)
         self.clear_caches()
         return res
 
-    @api.multi
+    
     def create_task_domain(self):
         self.ensure_one()
         return [("project_id", "in", self.project_ids.ids)]
 
-    @api.multi
+    
     def task_tree_view(self):
         self.ensure_one()
 
@@ -199,7 +199,7 @@ class Board(models.Model):
             "context": ctx,
         }
 
-    @api.multi
+    
     def declare_default(self):
         self.ensure_one()
         self.search(
@@ -208,7 +208,7 @@ class Board(models.Model):
 
         self.is_default = True
 
-    @api.multi
+    
     def export_board(self):
         self.ensure_one()
         wizard = self.env["project.agile.board.export.wizard"].create(
@@ -266,14 +266,14 @@ class Column(models.Model):
         ),
     ]
 
-    @api.multi
+    
     @api.depends("board_id.type")
     def _compute_min_max_visible(self):
         min_max_types = self._min_max_available_for_types()
         for column in self:
             column.min_max_visible = column.board_id.type in min_max_types
 
-    @api.one
+    
     @api.depends(
         "board_id", "board_id.project_ids", "board_id.project_ids.workflow_id"
     )
@@ -349,19 +349,19 @@ class ColumnStatus(models.Model):
         ),
     ]
 
-    @api.multi
+    
     def compute_workflow_stage_ids(self):
         for rec in self:
             rec.workflow_stage_ids = rec.workflow_ids.mapped("stage_ids")
 
-    @api.one
+    
     @api.depends(
         "board_id", "board_id.project_ids", "board_id.project_ids.workflow_id"
     )
     def _compute_workflow_ids(self):
         self.workflow_ids = self.board_id.mapped("project_ids.workflow_id").ids
 
-    @api.multi
+    
     @api.onchange("workflow_id")
     def calculate_workflow_stage_ids(self):
         for record in self:

@@ -16,7 +16,7 @@ class ProjectWorkflowEditWizard(models.TransientModel):
         default="form",
     )
 
-    @api.multi
+    
     def open_editor(self):
         self.ensure_one()
         action_name = "project_workflow_%s_edit_action" % self.type

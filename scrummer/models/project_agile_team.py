@@ -23,7 +23,7 @@ class AgileTeam(models.Model):
         comodel_name="project.workflow", scrummer=True
     )
 
-    @api.multi
+    
     def open_in_scrummer(self):
         self.ensure_one()
         return {

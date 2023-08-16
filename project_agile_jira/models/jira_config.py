@@ -33,7 +33,7 @@ class JiraConfig(models.Model):
         string="Requests",
     )
 
-    @api.multi
+    
     def synchronize_projects(self):
         for server in self:
             client = jira.JIRA(

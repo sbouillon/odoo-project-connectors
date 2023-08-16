@@ -32,7 +32,7 @@ class WorkflowMappingWizard(models.TransientModel):
         default=lambda s: s._default_from_diagram(),
     )
 
-    @api.multi
+    
     def button_finish(self):
         self.ensure_one()
 
@@ -96,7 +96,7 @@ class WorkflowMappingWizardLine(models.TransientModel):
         string="To Stage",
     )
 
-    @api.multi
+    
     def _compute_to_stage_id(self):
         return [("1", "1"), ("2", "2")]
 

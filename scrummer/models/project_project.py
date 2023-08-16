@@ -25,7 +25,7 @@ class Project(models.Model):
         comodel_name="project.task.type2", scrummer=True
     )
 
-    @api.multi
+    
     def open_in_scrummer(self):
         self.ensure_one()
         url = "/scrummer/web#page=board&project=%s&view=%s"

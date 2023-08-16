@@ -4,7 +4,7 @@
 # License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
 -->
 <odoo>
-    <record id="git_view_task_form2_inherited" model="ir.ui.view">
+    <!--<record id="git_view_task_form2_inherited" model="ir.ui.view">
         <field name="name">project.git.project.task.form.inherit</field>
         <field name="model">project.task</field>
         <field name="inherit_id" ref="project.view_task_form2"/>
@@ -19,5 +19,5 @@
                 </button>
             </button>
         </field>
-    </record>
+    </record>-->
 </odoo>

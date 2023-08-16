@@ -48,7 +48,7 @@ class TaskImport(models.TransientModel):
 
         self.issue_type_mapper_ids = issue_types
 
-    @api.multi
+    
     def button_import(self):
 
         if self.project_id.task_ids:

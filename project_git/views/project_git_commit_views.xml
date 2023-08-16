@@ -129,7 +129,6 @@
     <record id="action_git_commit" model="ir.actions.act_window">
         <field name="name">Commits</field>
         <field name="res_model">project.git.commit</field>
-        <field name="view_type">form</field>
         <field name="view_mode">kanban,tree,form</field>
         <field name="view_id" ref="view_git_commit_kanban"/>
         <field name="context">{'search_default_group_by_branch': 1}</field>
@@ -140,7 +139,6 @@
     <record id="action_branch_commits" model="ir.actions.act_window">
         <field name="name">Branch Commits</field>
         <field name="res_model">project.git.commit</field>
-        <field name="view_type">form</field>
         <field name="view_mode">kanban,tree,form</field>
         <field name="view_id" ref="view_git_commit_kanban"/>
         <field name="context">{'search_default_branch_id': [active_id]}</field>

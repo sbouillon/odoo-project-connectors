@@ -22,7 +22,7 @@ class ProjectEditWorkflowEWizard(models.TransientModel):
         domain="[('state', '=', 'live'), ('id', '!=', current_workflow_id)]",
     )
 
-    @api.multi
+    
     def apply(self):
         self.ensure_one()
 

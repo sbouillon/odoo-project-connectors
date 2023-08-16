@@ -18,7 +18,7 @@ class ProjectProject(models.Model):
         ("project_key_unique", "UNIQUE(key)", "Project key must be unique!")
     ]
 
-    @api.multi
+
     @api.onchange("name")
     def _onchange_project_name(self):
         for rec in self:
@@ -27,7 +27,7 @@ class ProjectProject(models.Model):
             else:
                 rec.key = ""
 
-    @api.multi
+
     @api.returns('self', lambda value: value.id)
     def copy(self, default=None):
         # clear the key before copying the project
@@ -49,7 +49,7 @@ class ProjectProject(models.Model):
 
         return new_project
 
-    @api.multi
+
     def write(self, values):
 
         reindex = False
@@ -64,11 +64,11 @@ class ProjectProject(models.Model):
             # Here we don't expect to have more than one record
             # because we can not have multiple projects with same KEY.
             self.update_sequence()
-            self._reindex_task_keys()
+            # self._reindex_task_keys()
 
         return res
 
-    @api.multi
+
     def unlink(self):
         sequences_to_delete = []
         for project in self:
@@ -166,27 +166,27 @@ class ProjectProject(models.Model):
         )
         return bool(projects)
 
-    @api.multi
-    def _reindex_task_keys(self):
-        """
-        This method will reindex task keys of the current project.
-        """
-        self.ensure_one()
 
-        reindex_query = """
-        UPDATE project_task
-        SET key = x.key
-        FROM (
-          SELECT t.id, p.key || '-' || split_part(t.key, '-', 2) AS key
-          FROM project_task t
-          INNER JOIN project_project p ON t.project_id = p.id
-          WHERE t.project_id = %s
-        ) AS x
-        WHERE project_task.id = x.id;
-        """
-
-        self.env.cr.execute(reindex_query, (self.id,))
-        self.env["project.task"].invalidate_cache(["key"], self.task_ids.ids)
+    # def _reindex_task_keys(self):
+    #     """
+    #     This method will reindex task keys of the current project.
+    #     """
+    #     self.ensure_one()
+    #
+    #     reindex_query = """
+    #     UPDATE project_task
+    #     SET key = x.key
+    #     FROM (
+    #       SELECT t.id, p.key || '-' || split_part(t.key, '-', 2) AS key
+    #       FROM project_task t
+    #       INNER JOIN project_project p ON t.project_id = p.id
+    #       WHERE t.project_id = %s
+    #     ) AS x
+    #     WHERE project_task.id = x.id;
+    #     """
+    #
+    #     self.env.cr.execute(reindex_query, (self.id,))
+    #     self.env["project.task"].invalidate_cache(["key"], self.task_ids.ids)
 
     @api.model
     def _set_default_project_key(self):

@@ -11,7 +11,7 @@ class Project(models.Model):
         selection_add=[("kanban", "Kanban")], default="kanban",
     )
 
-    @api.multi
+    
     def agile_kanban_enabled(self):
         self.ensure_one()
         return self.agile_enabled and self.agile_method == "kanban"
@@ -25,7 +25,7 @@ class Project(models.Model):
 class Task(models.Model):
     _inherit = "project.task"
 
-    @api.multi
+    
     def write(self, vals):
         ret = super(Task, self).write(vals)
         if self.env.context.get("kanban_backlog"):

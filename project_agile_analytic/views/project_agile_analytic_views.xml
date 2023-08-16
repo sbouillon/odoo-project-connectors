@@ -36,7 +36,6 @@
         <field name="res_model">project.agile.analytic.line.view</field>
         <field name="view_mode">tree,form,graph,pivot</field>
         <field name="view_id" ref="view_project_agile_analytic_line_tree"/>
-        <field name="view_type">form</field>
         <field name="help" type="html">
           <p>
             No activity yet on this task.
@@ -51,7 +50,6 @@
         <field name="res_model">project.agile.analytic.line.view</field>
         <field name="view_mode">tree,form,graph,pivot</field>
         <field name="view_id" ref="view_project_agile_analytic_line_tree"/>
-        <field name="view_type">form</field>
         <field name="help" type="html">
           <p>
             No activity yet on this task.
@@ -64,7 +62,6 @@
         <field name="res_model">project.agile.analytic.line.view</field>
         <field name="view_mode">tree,form,graph,pivot</field>
         <field name="view_id" ref="view_project_agile_analytic_line_tree"/>
-        <field name="view_type">form</field>
         <field name="help" type="html">
           <p>
             No activity yet.

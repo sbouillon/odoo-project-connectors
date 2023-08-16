@@ -22,7 +22,7 @@ class AddLinkWizard(models.TransientModel):
         comodel_name="project.task.link.relation", string="Relation"
     )
 
-    @api.multi
+    
     def add_task_link(self):
         self.env["project.task.link"].create(
             {

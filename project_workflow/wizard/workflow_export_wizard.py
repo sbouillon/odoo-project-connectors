@@ -27,7 +27,7 @@ class WorkflowImportWizard(models.TransientModel):
         [("start", "Start"), ("end", "End"),], default="start"
     )
 
-    @api.multi
+    
     def button_export(self):
         self.ensure_one()
 

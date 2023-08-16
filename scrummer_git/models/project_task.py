@@ -15,7 +15,7 @@ class ProjectTask(models.Model):
 class GitCommit(models.Model):
     _inherit = "project.git.commit"
 
-    @api.multi
+    
     def format_commits(self):
         commits = []
 
@@ -24,7 +24,7 @@ class GitCommit(models.Model):
 
         return commits
 
-    @api.multi
+    
     def format_commit(self):
         self.ensure_one()
         return {

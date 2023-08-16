@@ -43,7 +43,7 @@ class Project(models.Model):
 
         return new
 
-    @api.multi
+    
     def write(self, vals):
         if "allow_workflow" in vals and not vals["allow_workflow"]:
             vals["workflow_id"] = False
@@ -54,7 +54,7 @@ class Project(models.Model):
     def get_workflow_publisher(self):
         return self.env["project.workflow.publisher"]
 
-    @api.multi
+    
     def button_run_workflow_wizard(self):
         """
         This method opens ``project_edit_workflow_wizard_action`` wizard.
@@ -63,7 +63,7 @@ class Project(models.Model):
         self.ensure_one()
         return self.get_edit_workflow_wizard_action()
 
-    @api.multi
+    
     def get_edit_workflow_wizard_action(self):
         """
         Loads and prepares an action which opens a wizard for setting or
@@ -156,7 +156,7 @@ class Task(models.Model):
         # TODO check why need to sort by kanban_sequence
         return self._read_group_stage_ids(stages, domain, order)
 
-    @api.multi
+    
     @api.depends(
         "stage_id",
         "workflow_id",
@@ -233,7 +233,7 @@ class Task(models.Model):
 
         return new_list
 
-    @api.multi
+    
     def write(self, vals):
         stage_id = vals.get("stage_id", False)
         if stage_id and not self.env.context.get("ignore_workflow", False):

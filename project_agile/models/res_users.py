@@ -19,7 +19,7 @@ class Users(models.Model):
         comodel_name="project.agile.team", string="Current team",
     )
 
-    @api.multi
+    
     def write(self, vals):
         super(Users, self).write(vals)
         if "team_ids" in vals:
@@ -44,7 +44,7 @@ class Users(models.Model):
             name, args=args, operator=operator, limit=limit
         )
 
-    @api.multi
+    
     def change_team(self, team_id):
         self.ensure_one()
         if self.id == self.env.user.id and self.team_id in self.team_ids:
@@ -55,7 +55,7 @@ class Users(models.Model):
                 _("You are allowed only to change current team for yourself")
             )
 
-    @api.multi
+    
     def fix_team_id(self):
         for record in self:
             if record.team_id not in record.team_ids:

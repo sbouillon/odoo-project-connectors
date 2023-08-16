@@ -158,7 +158,7 @@ class Task(models.Model):
         scrummer=True,
     )
 
-    @api.multi
+    
     def open_in_scrummer(self):
         self.ensure_one()
         url = "/scrummer/web#page=board&project=%s&&view=task&task=%s"

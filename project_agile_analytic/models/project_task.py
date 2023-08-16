@@ -22,7 +22,7 @@ class Task(models.Model):
         related="project_id.analytic_enabled", string="Analytic Enabled"
     )
 
-    @api.multi
+    
     def _compute_analytic_line_count(self):
         for record in self:
             record.analytic_line_count = len(record.analytic_line_ids)
@@ -35,14 +35,14 @@ class Task(models.Model):
             task.create_task_analytic_line(vals_list, True)
         return task
 
-    @api.multi
+    
     def write(self, vals):
         for task in self:
             if task.analytic_enabled:
                 task.create_task_analytic_line(vals)
         return super(Task, self).write(vals)
 
-    @api.multi
+    
     def create_task_analytic_line(self, vals, create=False):
         self.ensure_one()
 

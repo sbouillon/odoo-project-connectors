@@ -10,7 +10,7 @@ class Project(models.Model):
         selection_add=[("scrum", "Scrum")], default="scrum",
     )
 
-    @api.multi
+    
     def agile_scrum_enabled(self):
         self.ensure_one()
         return self.agile_enabled and self.agile_method == "scrum"
@@ -34,7 +34,7 @@ class Task(models.Model):
 
     sprint_state = fields.Char(compute="_compute_sprint_state", store=True)
 
-    @api.multi
+    
     @api.depends("sprint_id", "sprint_id.state")
     def _compute_sprint_state(self):
         for record in self:
@@ -48,7 +48,7 @@ class Task(models.Model):
             new.set_sprint(new.parent_id.sprint_id.id)
         return new
 
-    @api.multi
+    
     def write(self, vals):
         ret = super(Task, self).write(vals)
 
@@ -63,6 +63,6 @@ class Task(models.Model):
                     record.child_ids.write({"sprint_id": vals["sprint_id"]})
         return ret
 
-    @api.multi
+    
     def set_sprint(self, sprint_id):
         self.write({"sprint_id": sprint_id})

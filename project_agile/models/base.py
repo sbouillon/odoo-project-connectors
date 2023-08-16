@@ -22,7 +22,7 @@ class AgileSystemCodeItem(models.AbstractModel):
 
     sequence = fields.Integer(string="Sequence", default=10,)
 
-    @api.multi
+    
     def unlink(self):
         for item in self:
             if item.system:

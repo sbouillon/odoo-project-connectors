@@ -83,7 +83,7 @@ class Workflow(models.Model):
         string="All workflow task stages",
     )
 
-    @api.multi
+    
     def _compute_stage_ids(self):
         for record in self:
             record.stage_ids = [x.stage_id.id for x in record.state_ids]
@@ -97,12 +97,12 @@ class Workflow(models.Model):
     ]
 
     @api.depends("edit_ids")
-    @api.multi
+    
     def _compute_edit_count(self):
         for workflow in self:
             workflow.edit_count = len(workflow.edit_ids)
 
-    @api.multi
+    
     @api.returns("self", lambda value: value.id)
     def copy(self, default=None):
         new = super(Workflow, self).copy(default=default)
@@ -130,7 +130,7 @@ class Workflow(models.Model):
 
         return new
 
-    @api.multi
+    
     def unlink(self):
         for workflow in self:
             if len(workflow.project_ids) != 0:
@@ -144,7 +144,7 @@ class Workflow(models.Model):
                 )
         return super(Workflow, self).unlink()
 
-    @api.multi
+    
     def is_live(self):
         """
         Gets a value indicating whether this workflow has been published or not
@@ -154,7 +154,7 @@ class Workflow(models.Model):
         self.ensure_one()
         return self.state == "live"
 
-    @api.multi
+    
     def is_draft(self):
         """
         Gets a value indicating whether this workflow has been published or not
@@ -191,7 +191,7 @@ class Workflow(models.Model):
 
         return transitions[stage_id]
 
-    @api.multi
+    
     def trigger(self, task, target_stage_id):
         self.ensure_one()
 
@@ -281,7 +281,7 @@ class Workflow(models.Model):
             "sequence": transition.dst_id.sequence,
         }
 
-    @api.multi
+    
     def export_workflow(self):
         self.ensure_one()
         wizard = self.env["project.workflow.export.wizard"].create(
@@ -289,7 +289,7 @@ class Workflow(models.Model):
         )
         return wizard.button_export()
 
-    @api.multi
+    
     def edit_workflow(self):
         self.ensure_one()
 
@@ -325,7 +325,7 @@ class Workflow(models.Model):
 
         return action
 
-    @api.multi
+    
     def publish_workflow(self):
         self.ensure_one()
 
@@ -351,12 +351,12 @@ class Workflow(models.Model):
     # This should be checked once we upgrade to a newer version of Odoo.
     # because it does not make sense for context not to be allowed on
     # tree view buttons.
-    @api.multi
+    
     def discard_working_copy_from_tree(self):
         self.ensure_one()
         self.with_context(original=True, origin="tree").discard_working_copy()
 
-    @api.multi
+    
     def discard_working_copy(self):
         self.ensure_one()
 
@@ -375,11 +375,11 @@ class Workflow(models.Model):
             ],
         }
 
-    @api.multi
+    
     def get_formview_id(self):
         return self.env.ref("project_workflow.project_workflow_form").id
 
-    @api.multi
+    
     def get_formview_action(self):
         view_id = self.get_formview_id()
         ctx = dict(self._context)
@@ -475,13 +475,13 @@ class WorkflowState(models.Model):
         )
     ]
 
-    @api.multi
+    
     def _compute_is_default(self):
         for record in self:
             default_state = record.workflow_id.default_state_id
             record.is_default = default_state.id == record.id
 
-    @api.multi
+    
     def _inverse_is_default(self):
         for record in self:
             if record.is_default:

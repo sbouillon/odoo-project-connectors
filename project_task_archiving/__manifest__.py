@@ -6,7 +6,7 @@
     "summary": "This module extends ``project.task.type`` with number of days "
     "after which task from that stage will get archived by cron",
     "category": "Project",
-    "version": "12.0.1.0.0",
+    "version": "16.0.1.0.0",
     "license": "LGPL-3",
     "author": "Modoolar",
     "website": "https://www.modoolar.com/",

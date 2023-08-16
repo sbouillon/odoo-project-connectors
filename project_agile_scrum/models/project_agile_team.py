@@ -55,7 +55,7 @@ class ScrumTeam(models.Model):
         help="Default Sprint time for this project",
     )
 
-    @api.multi
+    
     @api.depends("sprint_ids", "sprint_ids.state")
     def _compute_active_sprint(self):
         for rec in self:
@@ -64,7 +64,7 @@ class ScrumTeam(models.Model):
                 or False
             )
 
-    @api.multi
+    
     @api.depends("sprint_ids", "sprint_ids.state")
     def _compute_active_sprint_count(self):
         for record in self:
@@ -72,7 +72,7 @@ class ScrumTeam(models.Model):
                 record.sprint_ids.filtered(lambda r: r.state == "active")
             )
 
-    @api.multi
+    
     @api.depends("sprint_ids", "sprint_ids.state")
     def _compute_future_sprint_count(self):
         for record in self:
@@ -80,7 +80,7 @@ class ScrumTeam(models.Model):
                 record.sprint_ids.filtered(lambda r: r.state == "draft")
             )
 
-    @api.multi
+    
     @api.depends("sprint_ids", "sprint_ids.state")
     def _compute_completed_sprint_count(self):
         for record in self:
@@ -88,11 +88,11 @@ class ScrumTeam(models.Model):
                 record.sprint_ids.filtered(lambda r: r.state == "completed")
             )
 
-    @api.multi
+    
     def open_active_sprint(self):
         return self.active_sprint_id.get_formview_action()
 
-    @api.multi
+    
     def open_future_sprints(self):
         self.ensure_one()
         action = self.env.ref_action("project_agile_scrum.open_agile_sprint")
@@ -104,7 +104,7 @@ class ScrumTeam(models.Model):
         action["context"] = ctx
         return action
 
-    @api.multi
+    
     def open_completed_sprints(self):
         self.ensure_one()
         action = self.env.ref_action("project_agile_scrum.open_agile_sprint")

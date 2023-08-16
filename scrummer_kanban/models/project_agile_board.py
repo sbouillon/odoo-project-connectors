@@ -32,7 +32,7 @@ class ProjectAgileBoard(models.Model):
         scrummer=True,
     )
 
-    @api.one
+    
     @api.depends(
         "kanban_backlog_column_status_ids",
         "kanban_backlog_column_status_ids.stage_id",
@@ -42,7 +42,7 @@ class ProjectAgileBoard(models.Model):
             "kanban_backlog_column_status_ids.stage_id"
         )
 
-    @api.one
+    
     @api.depends(
         "kanban_backlog_state_ids",
         "kanban_backlog_state_ids.state_id",

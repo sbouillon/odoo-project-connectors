@@ -14,7 +14,7 @@ class Workflow(models.Model):
         copy=True,
     )
 
-    @api.multi
+    
     @api.returns("self", lambda value: value.id)
     def copy(self, default=None):
         new = super(Workflow, self).copy(default=default)

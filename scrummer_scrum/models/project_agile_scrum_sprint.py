@@ -22,7 +22,7 @@ class Sprint(models.Model):
     task_ids = fields.One2many(comodel_name="project.task", scrummer=True)
     team_id = fields.Many2one(comodel_name="project.agile.team", scrummer=True)
 
-    @api.multi
+    
     def open_in_scrummer(self):
         self.ensure_one()
 

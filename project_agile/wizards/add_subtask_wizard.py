@@ -73,7 +73,7 @@ class AddSubTaskWizard(models.TransientModel):
 
         self.priority_id = priority
 
-    @api.multi
+    
     def add_sub_task(self):
         sub_task = self._populate_sub_task()
         self.env["project.task"].create(sub_task)

@@ -5,7 +5,7 @@
     "name": "Scrummer Scrum",
     "summary": "Manage your projects by using agile scrum methodology.",
     "category": "Project",
-    "version": "12.0.1.0.0",
+    "version": "16.0.1.0.0",
     "license": "LGPL-3",
     "author": "Modoolar",
     "website": "https://www.modoolar.com/",

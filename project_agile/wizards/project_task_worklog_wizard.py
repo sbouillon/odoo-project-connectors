@@ -27,7 +27,7 @@ class ProjectTaskWorklogWizard(models.TransientModel):
 
     duration = fields.Float(string="Duration", required=True,)
 
-    @api.multi
+    
     def button_submit_worklog(self):
         self.ensure_one()
         self.task_id.timesheet_ids.create(self._prepare_worklog())

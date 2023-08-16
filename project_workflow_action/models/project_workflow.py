@@ -45,7 +45,7 @@ class WorkflowStateAction(models.Model):
         ondelete="cascade",
     )
 
-    @api.multi
+    
     def unlink(self):
         for record in self:
             record.ir_actions_server_id.unlink()
@@ -64,7 +64,7 @@ class WorkflowTransitionAction(models.Model):
         ondelete="cascade",
     )
 
-    @api.multi
+    
     def unlink(self):
         for record in self:
             record.ir_actions_server_id.unlink()

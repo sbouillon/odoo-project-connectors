@@ -6,7 +6,7 @@
     "summary": """This module extends Scrummer in order to support timesheet
     categories introduced in project_timesheet_category module""",
     "category": "Project",
-    "version": "12.0.1.0.0",
+    "version": "16.0.1.0.0",
     "license": "LGPL-3",
     "author": "Modoolar",
     "website": "https://www.modoolar.com/",

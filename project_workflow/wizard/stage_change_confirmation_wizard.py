@@ -28,7 +28,7 @@ class StageChangeConfirmationWizard(models.TransientModel):
         ondelete="cascade",
     )
 
-    @api.multi
+    
     def apply(self):
         self.ensure_one()
 
